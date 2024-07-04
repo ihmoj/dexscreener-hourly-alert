@@ -6,8 +6,6 @@ import datetime
 from datetime import datetime
 from colorama import Fore
 
-ctypes.windll.kernel32.SetConsoleTitleW(f'PAI Price Alert | ')
-
 def alert(old_fdv, new_fdv):
     HOOK = "https://discord.com/api/webhooks/1258469059586949151/lcfeXAepWwBm6NI8JrA74LW0NObah6kA82zpPieUq9UPWRgDuV5vHWZIYMwFNsZU_K1g"
     
@@ -60,14 +58,12 @@ def checkFDV():
             now = datetime.now()
             current_time = now.strftime("%Y-%m-%d | %H:%M:%S")
             print(f"{Fore.MAGENTA}[{Fore.RESET}{current_time}{Fore.MAGENTA}]{Fore.RESET} {fdv}")
-            ctypes.windll.kernel32.SetConsoleTitleW(f'PAI Price Alert | {fdv}')
 
             old_fdv = fdv
             new_fdv = pairs[0].get('fdv')
             if fdv < new_fdv - sub:
                 print(f"{Fore.GREEN}[{Fore.RESET}{current_time}{Fore.GREEN}]{Fore.RESET} DROPPED BY 100K => {fdv}")
                 alert(old_fdv, new_fdv)
-                ctypes.windll.kernel32.SetConsoleTitleW(f'PAI Price Alert | {fdv}')
             else:
                 print(f"{Fore.GREEN}[{Fore.RESET}{current_time}{Fore.GREEN}]{Fore.RESET} FDV HASN'T DROPPED YET - WAITING...")
                 print('')
